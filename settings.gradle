@@ -1,0 +1,3 @@
+include ':Templars'
+include ':app'
+rootProject.name = "Templars-Android-SDK"
