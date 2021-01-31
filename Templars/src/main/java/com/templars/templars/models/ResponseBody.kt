@@ -2,8 +2,8 @@ package com.templars.templars.models
 
 public data class ResponseBody<T> (
     val message: String,
-    val data: T,
-    var meta: Meta
+    val data: T?,
+    var meta: Meta?
 )
 
 public data class Meta(

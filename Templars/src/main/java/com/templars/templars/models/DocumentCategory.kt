@@ -15,5 +15,5 @@ data class DocumentCategory (
     @SerializedName("public")
     val isPublic: Boolean,
     val price: Double,
-    val parent: List<DocumentCategory>?
+    val parent: DocumentCategory
 )
