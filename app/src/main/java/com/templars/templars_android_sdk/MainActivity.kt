@@ -21,11 +21,11 @@ class MainActivity : AppCompatActivity() {
 
         templars = Templars("sk-28d8355f89744fdcbe3ca487e568061f")
 
-//        val document = CreateDocument("My Document 1", true, "Some fields",
-//            "matthew.chukwuemeka40@gmail.com", "506c5806-cc9b-4f8b-a83d-81083a3cbc01")
+        val document = CreateDocument("My Document 500", true, "Some fields",
+            "matthew.chukwuemeka40@gmail.com", "506c5806-cc9b-4f8b-a83d-81083a3cbc01")
 //        templars.createDocument(document){
 //            it.onSuccess { resp ->
-//                Log.d(TAG, "Document: ${resp.data.name}")
+//                Log.d(TAG, "Document: ${resp.data?.name}")
 //            }
 //
 //            it.onFailure { err ->
@@ -33,15 +33,15 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-        templars.updateDocument("09ebf8e2-8d47-4661-9dcc-b06382dfc88e", "Updated Fields"){
-            it.onSuccess { resp ->
-                Log.d(TAG, "Document: ${resp.data?.name}")
-            }
-
-            it.onFailure { err ->
-                Log.d(TAG, "Document Error: ${err.localizedMessage}")
-            }
-        }
+//        templars.updateDocument("09ebf8e2-8d47-4661-9dcc-b06382dfc88e", "Updated Fields"){
+//            it.onSuccess { resp ->
+//                Log.d(TAG, "Document: ${resp.data?.name}")
+//            }
+//
+//            it.onFailure { err ->
+//                Log.d(TAG, "Document Error: ${err.localizedMessage}")
+//            }
+//        }
 
 
 //        val body = CreateRegistration("More 2", true,
