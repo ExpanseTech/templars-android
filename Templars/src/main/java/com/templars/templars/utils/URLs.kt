@@ -10,7 +10,7 @@ class URLs {
         const val getDocuments = "/api/v1/documents/me/"
         const val getDocument = "/api/v1/documents/{id}"
         const val createDocument = "/api/v1/documents"
-        const val updateDocument = "/api​/v1​/documents/{id}"
+        const val updateDocument = "/api/v1/documents/{${Constants.ID}}"
         const val deleteDocument = "/api​/v1​/documents/%s"
         const val updateDocumentPayment = "/api​/v1​/documents/%s/payment"
         const val getPublicDocumentCategories = "/api/v1/document-categories/public/"
