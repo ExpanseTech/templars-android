@@ -2,6 +2,16 @@ package com.templars.templars.models.requestBody
 
 import java.util.*
 
+/**
+ * Create Session Model
+ *
+ * @property title
+ * @property description
+ * @property startDate
+ * @property count
+ * @property type
+ * @property customerReference
+ */
 class CreateSession (
     val title: String,
     val description: String,

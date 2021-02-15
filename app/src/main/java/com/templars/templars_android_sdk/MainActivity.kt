@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        templars = Templars("sk-28d8355f89744fdcbe3ca487e568061f")
+        templars = Templars("<API-KEY>")
 
         val document = CreateDocument("My Document 500", true, "Some fields",
             "matthew.chukwuemeka40@gmail.com", "506c5806-cc9b-4f8b-a83d-81083a3cbc01")

@@ -2,6 +2,19 @@ package com.templars.templars.models
 
 import java.util.*
 
+
+/**
+ * Document
+ *
+ * @property name
+ * @property active
+ * @property draft
+ * @property categoryId
+ * @property userId
+ * @property createdAt
+ * @property updatedAt
+ * @property user
+ */
 data class Document(
     val name: String,
     val active: Boolean,

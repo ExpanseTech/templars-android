@@ -2,18 +2,22 @@ package com.templars.templars.utils
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.templars.templars.models.ApiError
-import com.templars.templars.models.Document
-import com.templars.templars.models.ResponseBody
+import com.templars.templars.models.TError
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.HttpException
 import retrofit2.Response
 
-val Throwable.apiError: ApiError
-    get() = ApiError("Error", localizedMessage)
+val Throwable.tError: TError
+    get() = TError("Error", localizedMessage)
 
 
+/**
+ * Extension func for generic [Call] type,
+ * it handles success and error response from the server
+ *
+ * @param T
+ * @param callback
+ */
 public fun <T> Call<T>.enqueue(callback: (Result<T>) -> Unit) {
     enqueue(object: Callback<T> {
         override fun onResponse(call: Call<T>, response: Response<T>) {
@@ -33,17 +37,4 @@ public fun <T> Call<T>.enqueue(callback: (Result<T>) -> Unit) {
         }
 
     })
-}
-
-fun <T> Throwable.handleError(callback: (Pair<T?, ApiError?>) -> Unit) {
-    callback(Pair(null, apiError))
-}
-
-fun <T> Response<T>.handleData(callback: (Pair<T?, ApiError?>) -> Unit) {
-    if (!this.isSuccessful){
-        val type = object : TypeToken<ApiError>(){}.type
-        val apiError: ApiError = Gson().fromJson(errorBody()!!.charStream(), type)
-        callback(Pair(null, apiError))
-    }
-    callback(Pair(body(), null))
 }
