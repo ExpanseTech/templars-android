@@ -9,7 +9,7 @@ import com.templars.templars.models.requestBody.CreateRegistration
 import com.templars.templars.models.requestBody.CreateSession
 import java.util.*
 
-public class Templars(private val apiKey: String) {
+public class Templars(val apiKey: String) {
     private val documentApis = DocumentAPIs(apiKey)
     private val sessionApis = SessionsAPIs(apiKey)
     private val registrationAPIs = RegistrationAPIs(apiKey)
