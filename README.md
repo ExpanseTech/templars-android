@@ -20,7 +20,7 @@ allprojects {
 Add the line below in your app's ```build.gradle```
 ```gradle
 dependencies {
-	        implementation 'com.github.ExpanseTech:templars-android:v1.1'
+	        implementation 'com.github.ExpanseTech:templars-android:v1.1.2'
 	}
 ```
 
