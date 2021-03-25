@@ -8,7 +8,7 @@ package com.templars.templars.utils
 class URLs {
 
     companion object{
-        const val baseURL = "http://templars-api.herokuapp.com"
+        const val baseURL = "https://templars-api.herokuapp.com"
 
         //MARK: Documents API
         const val getDocuments = "/api/v1/documents/me/"
@@ -16,6 +16,7 @@ class URLs {
         const val createDocument = "/api/v1/documents"
         const val updateDocument = "/api/v1/documents/{${Constants.ID}}"
         const val getPublicDocumentCategories = "/api/v1/document-categories/public/"
+        const val getPublicDocumentCategory = "/api/v1/document-categories/{${Constants.ID}}"
 
         //MARK: Bussiness Registeration API
         const val getRegistration = "/api/v1/registrations/{id}"

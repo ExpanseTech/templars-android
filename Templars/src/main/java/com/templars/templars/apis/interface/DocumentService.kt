@@ -31,6 +31,9 @@ interface DocumentService {
         @Query(Constants.SORT_BY) sortBy: String
     ): Call<ResponseBody<List<Document>>>
 
+    @GET(URLs.getPublicDocumentCategory)
+    fun getDocumentCategory(@Header(Constants.AUTHORIZATION) token: String, @Path(Constants.ID) id: String): Call<ResponseBody<DocumentCategory>>
+
     @GET(URLs.getPublicDocumentCategories)
     fun getDocumentCategories(@Header(Constants.AUTHORIZATION) token: String): Call<ResponseBody<List<DocumentCategory>>>
 

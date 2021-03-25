@@ -1,5 +1,6 @@
 package com.templars.templars.models
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -26,8 +27,28 @@ data class DocumentCategory (
     val name: String,
     val slug: String,
     val description: String,
+    val template: String?,
     @SerializedName("public")
     val isPublic: Boolean,
     val price: Double,
     val parent: DocumentCategory
-)
+){
+    val fields: MutableList<Field>?
+        get() = when(template){
+        null -> null
+        else -> {
+            var f: MutableList<Field> = mutableListOf()
+            val fields = Gson().fromJson(template, Template::class.java)
+            if (fields != null){
+                if (fields.nodes != null){
+                    f.addAll(Field.getEditableFields(fields.nodes).toMutableList())
+                }
+
+                if (fields.orphans != null){
+                    f.addAll(Field.getEditableFields(fields.orphans).toMutableList())
+                }
+            }
+            f
+        }
+    }
+}

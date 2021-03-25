@@ -1,5 +1,8 @@
 package com.templars.templars.models.requestBody
 
+import com.templars.templars.models.Field
+import java.util.*
+
 /**
  * Create Document Model
  *
@@ -12,7 +15,20 @@ package com.templars.templars.models.requestBody
 public class CreateDocument (
     val name: String,
     val draft: Boolean,
-    val fields: String,
+    val fields: List<Field>,
     val customerReference: String,
     val categoryId: String
 )
+
+internal class CreateDocument2(
+    val name: String,
+    val draft: Boolean,
+    val fieldList: List<Field>,
+    val customerReference: String,
+    val categoryId: String
+){
+    val fields: String
+    init {
+       fields = Field.getJsonString(fieldList)
+    }
+}

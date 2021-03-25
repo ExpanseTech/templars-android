@@ -6,6 +6,7 @@ import com.templars.templars.models.TError
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Error
 
 val Throwable.tError: TError
     get() = TError("Error", localizedMessage)
@@ -22,6 +23,10 @@ public fun <T> Call<T>.enqueue(callback: (Result<T>) -> Unit) {
     enqueue(object: Callback<T> {
         override fun onResponse(call: Call<T>, response: Response<T>) {
             try {
+                if (response.code() > 499){
+                    val result = Result.failure<T>(Error("Service Error"))
+                    callback(result)
+                }
                 val result = Result.success(response.body()!!)
                 callback(result)
             }catch(ex: Exception) {

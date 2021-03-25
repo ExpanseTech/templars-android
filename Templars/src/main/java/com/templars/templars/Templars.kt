@@ -8,8 +8,9 @@ import com.templars.templars.models.requestBody.CreateDocument
 import com.templars.templars.models.requestBody.CreateRegistration
 import com.templars.templars.models.requestBody.CreateSession
 import java.util.*
+import kotlin.collections.ArrayList
 
-public class Templars(val apiKey: String) {
+public class Templars private constructor(val apiKey: String) {
     private val documentApis = DocumentAPIs(apiKey)
     private val sessionApis = SessionsAPIs(apiKey)
     private val registrationAPIs = RegistrationAPIs(apiKey)
@@ -49,6 +50,16 @@ public class Templars(val apiKey: String) {
     }
 
     /**
+     * Get a Document Category by its ID
+     *
+     * @param id
+     * @param callback
+     */
+    fun getDocumentCategory(id: String, callback: (Result<ResponseBody<DocumentCategory>>) -> Unit){
+        documentApis.getDocumentCategory(id, callback)
+    }
+
+    /**
      * Create a Document
      *
      * @param document
@@ -65,7 +76,7 @@ public class Templars(val apiKey: String) {
      * @param fields
      * @param callback
      */
-    fun updateDocument(documentId: String, fields: String,callback: (Result<ResponseBody<Document>>) -> Unit){
+    fun updateDocument(documentId: String, fields: List<Field>,callback: (Result<ResponseBody<Document>>) -> Unit){
         documentApis.updateDocument(documentId, fields, callback)
     }
 
@@ -158,5 +169,10 @@ public class Templars(val apiKey: String) {
      */
     fun createRegistration(createRegistration: CreateRegistration, callback: (Result<ResponseBody<Registration>>) -> Unit){
         registrationAPIs.createRegistration(createRegistration, callback)
+    }
+
+    companion object{
+        var apiKey: String = ""
+        val instance = Templars(apiKey)
     }
 }
