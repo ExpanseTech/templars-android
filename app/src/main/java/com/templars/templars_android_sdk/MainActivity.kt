@@ -1,17 +1,10 @@
 package com.templars.templars_android_sdk
 
-import android.nfc.Tag
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Switch
+import androidx.appcompat.app.AppCompatActivity
 import com.templars.templars.Templars
-import com.templars.templars.models.Document
 import com.templars.templars.models.Field
-import com.templars.templars.models.requestBody.CreateDocument
-import com.templars.templars.models.requestBody.CreateRegistration
-import com.templars.templars.models.requestBody.CreateSession
-import com.templars.templars.models.requestBody.Tuple
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -230,11 +223,20 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Registration Categories Error: ${err.localizedMessage}")
             }
         }
+
+        templars.getLawyerCategories {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Lawyer Categories: ${resp.data?.size}")
+            }
+
+            it.onFailure { err ->
+                Log.d(TAG, "Lawyer Categories Error: ${err.localizedMessage}")
+            }
+        }
     }
 
     companion object{
 
         const val TAG = "MainActivity"
-
     }
 }
