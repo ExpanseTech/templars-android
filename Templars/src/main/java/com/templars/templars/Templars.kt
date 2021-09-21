@@ -1,6 +1,7 @@
 package com.templars.templars
 
 import com.templars.templars.apis.DocumentAPIs
+import com.templars.templars.apis.LawyerAPIs
 import com.templars.templars.apis.RegistrationAPIs
 import com.templars.templars.apis.SessionsAPIs
 import com.templars.templars.models.*
@@ -8,12 +9,12 @@ import com.templars.templars.models.requestBody.CreateDocument
 import com.templars.templars.models.requestBody.CreateRegistration
 import com.templars.templars.models.requestBody.CreateSession
 import java.util.*
-import kotlin.collections.ArrayList
 
 public class Templars private constructor(val apiKey: String) {
     private val documentApis = DocumentAPIs(apiKey)
     private val sessionApis = SessionsAPIs(apiKey)
     private val registrationAPIs = RegistrationAPIs(apiKey)
+    private val lawyerAPIs = LawyerAPIs(apiKey)
 
     /**
      * Gets user's document with [id]
@@ -169,6 +170,15 @@ public class Templars private constructor(val apiKey: String) {
      */
     fun createRegistration(createRegistration: CreateRegistration, callback: (Result<ResponseBody<Registration>>) -> Unit){
         registrationAPIs.createRegistration(createRegistration, callback)
+    }
+
+    /**
+     * Get all categories For lawywers
+     *
+     * @param callback
+     */
+    fun getLawyerCategories(callback: (Result<ResponseBody<List<LawyerCategory>>>) -> Unit){
+        lawyerAPIs.getLawyerCategories(callback)
     }
 
     companion object{

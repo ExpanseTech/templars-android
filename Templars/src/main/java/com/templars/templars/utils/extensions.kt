@@ -1,12 +1,9 @@
 package com.templars.templars.utils
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.templars.templars.models.TError
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Error
 
 val Throwable.tError: TError
     get() = TError("Error", localizedMessage)
@@ -37,9 +34,7 @@ public fun <T> Call<T>.enqueue(callback: (Result<T>) -> Unit) {
 
         override fun onFailure(call: Call<T>, t: Throwable) {
             val result = Result.failure<T>(t)
-
             callback(result)
         }
-
     })
 }

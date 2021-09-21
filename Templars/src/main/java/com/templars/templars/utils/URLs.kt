@@ -30,5 +30,7 @@ class URLs {
         const val createSession = "/api/v1/sessions"
         const val rescheduleSession = "/api/v1/sessions/{${Constants.ID}}/reschedule"
 
+        //MARK: Lawyers API
+        const val getLawyersCategories = "/api/v1/lawyers/categories"
     }
 }
