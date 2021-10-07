@@ -11,6 +11,7 @@ import java.util.*
  * @property count
  * @property type
  * @property customerReference
+ * @property lawyerCategoryId
  */
 class CreateSession(
     val title: String,
