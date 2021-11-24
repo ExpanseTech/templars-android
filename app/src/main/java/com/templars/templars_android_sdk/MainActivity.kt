@@ -8,14 +8,12 @@ import com.templars.templars.models.Field
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var templars: Templars
+
+    private val templars = Templars("sk-e4d5c50ae89449a290bc65032e9bd307")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Templars.apiKey = ""
-
-        templars = Templars.instance
 
 //        val document = CreateDocument("My Document 500x", true, "Some fields",
 //            "matthew.chukwuemeka40@gmail.com", "506c5806-cc9b-4f8b-a83d-81083a3cbc01")
@@ -81,11 +79,11 @@ class MainActivity : AppCompatActivity() {
         updateDocument()
     }
 
-    fun getDocumentCategory(){
-        templars.getDocumentCategory("506c5806-cc9b-4f8b-a83d-81083a3cbc01"){
+    fun getDocumentCategory() {
+        templars.getDocumentCategory("506c5806-cc9b-4f8b-a83d-81083a3cbc01") {
             it.onSuccess { resp ->
                 val fields = resp.data?.fields
-                templars.updateDocument("506c5806-cc9b-4f8b-a83d-81083a3cbc01", fields!!){
+                templars.updateDocument("506c5806-cc9b-4f8b-a83d-81083a3cbc01", fields!!) {
                     it.onSuccess {
                         Log.d(TAG, "Documents Category: Success Update")
                     }
@@ -102,12 +100,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateDocument(){
-        val field1 = Field("71d203d9-8c65-4a90-9471-e0436a11a695", "02/28/2019", Field.DataType.date, "MM/dd/yyyy")
+    fun updateDocument() {
+        val field1 = Field(
+            "71d203d9-8c65-4a90-9471-e0436a11a695",
+            "02/28/2019",
+            Field.DataType.date,
+            "MM/dd/yyyy"
+        )
         val field2 = Field("dfc76195-74c9-4e13-8355-c2dd932e4799", "Martini", Field.DataType.text)
         val field3 = Field("a71e00ba-861d-4b49-97d6-5c93bdeb62fe", "Now", Field.DataType.text)
         val field4 = Field("65567f91-66aa-4277-a228-bc30f7654bb7", "No label", Field.DataType.text)
-        val field5 = Field("341bd314-aead-441d-847f-8ea7d17c22bb", "I don't know", Field.DataType.text)
+        val field5 =
+            Field("341bd314-aead-441d-847f-8ea7d17c22bb", "I don't know", Field.DataType.text)
         val field6 = Field("dbc09501-daf8-48d4-88d6-e6823e397fb8", "LOL", Field.DataType.text)
         val field7 = Field("9912b124-9704-4f8f-ae2a-b9644c7e1369", "Hello", Field.DataType.text)
 
@@ -120,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         fields.add(field6)
         fields.add(field7)
 
-        templars.updateDocument("f87d01f9-7a5e-4d8f-8221-4be37042476a", fields){
+        templars.updateDocument("f87d01f9-7a5e-4d8f-8221-4be37042476a", fields) {
             it.onSuccess { resp ->
                 Log.d(TAG, "updateDocument: Success")
                 print(resp.data?.userId)
@@ -142,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun allGetRequest(){
+    fun allGetRequest() {
         templars.getDocuments {
             it.onSuccess { resp ->
                 Log.d(TAG, "Documents: ${resp.data?.size}")
@@ -235,7 +239,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object{
+    companion object {
 
         const val TAG = "MainActivity"
     }

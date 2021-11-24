@@ -10,7 +10,8 @@ import com.templars.templars.models.requestBody.CreateRegistration
 import com.templars.templars.models.requestBody.CreateSession
 import java.util.*
 
-public class Templars private constructor(val apiKey: String) {
+class Templars(apiKey: String) {
+
     private val documentApis = DocumentAPIs(apiKey)
     private val sessionApis = SessionsAPIs(apiKey)
     private val registrationAPIs = RegistrationAPIs(apiKey)
@@ -22,7 +23,7 @@ public class Templars private constructor(val apiKey: String) {
      * @param id
      * @param callback
      */
-    fun getDocument(id: String, callback: (Result<ResponseBody<Document>>) -> Unit){
+    fun getDocument(id: String, callback: (Result<ResponseBody<Document>>) -> Unit) {
         documentApis.getDocument(id, callback)
     }
 
@@ -35,8 +36,13 @@ public class Templars private constructor(val apiKey: String) {
      * @param sortBy
      * @param callback
      */
-    fun getDocuments(draft: Boolean = false, page: Int = 1, pageSize: Int = 30, sortBy: SortBy = SortBy.CreationDate,
-                     callback: (Result<ResponseBody<List<Document>>>) -> Unit){
+    fun getDocuments(
+        draft: Boolean = false,
+        page: Int = 1,
+        pageSize: Int = 30,
+        sortBy: SortBy = SortBy.CreationDate,
+        callback: (Result<ResponseBody<List<Document>>>) -> Unit
+    ) {
 
         documentApis.getDocuments(draft, page, pageSize, sortBy, callback)
     }
@@ -46,7 +52,7 @@ public class Templars private constructor(val apiKey: String) {
      *
      * @param callback
      */
-    fun getDocumentCategories(callback: (Result<ResponseBody<List<DocumentCategory>>?>) -> Unit){
+    fun getDocumentCategories(callback: (Result<ResponseBody<List<DocumentCategory>>?>) -> Unit) {
         documentApis.getDocumentCategories(callback)
     }
 
@@ -56,7 +62,10 @@ public class Templars private constructor(val apiKey: String) {
      * @param id
      * @param callback
      */
-    fun getDocumentCategory(id: String, callback: (Result<ResponseBody<DocumentCategory>>) -> Unit){
+    fun getDocumentCategory(
+        id: String,
+        callback: (Result<ResponseBody<DocumentCategory>>) -> Unit
+    ) {
         documentApis.getDocumentCategory(id, callback)
     }
 
@@ -66,7 +75,10 @@ public class Templars private constructor(val apiKey: String) {
      * @param document
      * @param callback
      */
-    fun createDocument(document: CreateDocument, callback: (Result<ResponseBody<Document>>) -> Unit){
+    fun createDocument(
+        document: CreateDocument,
+        callback: (Result<ResponseBody<Document>>) -> Unit
+    ) {
         documentApis.createDocument(document, callback)
     }
 
@@ -77,7 +89,11 @@ public class Templars private constructor(val apiKey: String) {
      * @param fields
      * @param callback
      */
-    fun updateDocument(documentId: String, fields: List<Field>,callback: (Result<ResponseBody<Document>>) -> Unit){
+    fun updateDocument(
+        documentId: String,
+        fields: List<Field>,
+        callback: (Result<ResponseBody<Document>>) -> Unit
+    ) {
         documentApis.updateDocument(documentId, fields, callback)
     }
 
@@ -88,7 +104,7 @@ public class Templars private constructor(val apiKey: String) {
      * @param id
      * @param callback
      */
-    fun getSession(id: String, callback: (Result<ResponseBody<Session>>) -> Unit){
+    fun getSession(id: String, callback: (Result<ResponseBody<Session>>) -> Unit) {
         sessionApis.getSession(id, callback)
     }
 
@@ -101,8 +117,13 @@ public class Templars private constructor(val apiKey: String) {
      * @param sortBy
      * @param callback
      */
-    fun getSessions(draft: Boolean = false, page: Int = 1, pageSize: Int = 30, sortBy: SortBy = SortBy.CreationDate,
-                    callback: (Result<ResponseBody<List<Session>>>) -> Unit){
+    fun getSessions(
+        draft: Boolean = false,
+        page: Int = 1,
+        pageSize: Int = 30,
+        sortBy: SortBy = SortBy.CreationDate,
+        callback: (Result<ResponseBody<List<Session>>>) -> Unit
+    ) {
         sessionApis.getSessions(draft, page, pageSize, sortBy, callback)
     }
 
@@ -112,7 +133,7 @@ public class Templars private constructor(val apiKey: String) {
      * @param session
      * @param callback
      */
-    fun createSession(session: CreateSession, callback: (Result<ResponseBody<Session>>) -> Unit){
+    fun createSession(session: CreateSession, callback: (Result<ResponseBody<Session>>) -> Unit) {
         sessionApis.createSession(session, callback)
     }
 
@@ -124,7 +145,12 @@ public class Templars private constructor(val apiKey: String) {
      * @param count
      * @param callback
      */
-    fun rescheduleSession(sessionId: String, newDate: Date? = null, count: Int, callback: (Result<ResponseBody<Session>>) -> Unit){
+    fun rescheduleSession(
+        sessionId: String,
+        newDate: Date? = null,
+        count: Int,
+        callback: (Result<ResponseBody<Session>>) -> Unit
+    ) {
         sessionApis.rescheduleSession(sessionId, newDate, count, callback)
     }
 
@@ -134,7 +160,7 @@ public class Templars private constructor(val apiKey: String) {
      * @param id
      * @param callback
      */
-    fun getRegistration(id: String, callback: (Result<ResponseBody<Registration>>) -> Unit){
+    fun getRegistration(id: String, callback: (Result<ResponseBody<Registration>>) -> Unit) {
         registrationAPIs.getRegistration(id, callback)
     }
 
@@ -147,8 +173,13 @@ public class Templars private constructor(val apiKey: String) {
      * @param sortBy
      * @param callback
      */
-    fun getRegistrations(draft: Boolean = false, page: Int = 1, pageSize: Int = 30, sortBy: SortBy = SortBy.CreationDate,
-                         callback: (Result<ResponseBody<List<Registration>>>) -> Unit){
+    fun getRegistrations(
+        draft: Boolean = false,
+        page: Int = 1,
+        pageSize: Int = 30,
+        sortBy: SortBy = SortBy.CreationDate,
+        callback: (Result<ResponseBody<List<Registration>>>) -> Unit
+    ) {
 
         registrationAPIs.getRegistrations(draft, page, pageSize, sortBy, callback)
     }
@@ -158,7 +189,7 @@ public class Templars private constructor(val apiKey: String) {
      *
      * @param callback
      */
-    fun getRegistrationCategories(callback: (Result<ResponseBody<List<RegistrationCategory>>>) -> Unit){
+    fun getRegistrationCategories(callback: (Result<ResponseBody<List<RegistrationCategory>>>) -> Unit) {
         registrationAPIs.getRegistrationCategories(callback)
     }
 
@@ -168,7 +199,10 @@ public class Templars private constructor(val apiKey: String) {
      * @param createRegistration
      * @param callback
      */
-    fun createRegistration(createRegistration: CreateRegistration, callback: (Result<ResponseBody<Registration>>) -> Unit){
+    fun createRegistration(
+        createRegistration: CreateRegistration,
+        callback: (Result<ResponseBody<Registration>>) -> Unit
+    ) {
         registrationAPIs.createRegistration(createRegistration, callback)
     }
 
@@ -177,12 +211,7 @@ public class Templars private constructor(val apiKey: String) {
      *
      * @param callback
      */
-    fun getLawyerCategories(callback: (Result<ResponseBody<List<LawyerCategory>>>) -> Unit){
+    fun getLawyerCategories(callback: (Result<ResponseBody<List<LawyerCategory>>>) -> Unit) {
         lawyerAPIs.getLawyerCategories(callback)
-    }
-
-    companion object{
-        var apiKey: String = ""
-        val instance = Templars(apiKey)
     }
 }
