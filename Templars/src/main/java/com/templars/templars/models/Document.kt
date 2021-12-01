@@ -16,6 +16,7 @@ import java.util.*
  * @property user
  */
 data class Document(
+    val id: String,
     val name: String,
     val active: Boolean,
     val draft: Boolean,

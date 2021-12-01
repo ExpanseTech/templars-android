@@ -5,93 +5,103 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.templars.templars.Templars
 import com.templars.templars.models.Field
+import com.templars.templars.models.requestBody.CreateDocument
+import com.templars.templars.models.requestBody.CreateRegistration
+import com.templars.templars.models.requestBody.CreateSession
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val templars = Templars("sk-e4d5c50ae89449a290bc65032e9bd307")
+    private val templars = Templars("PUT YOUR API KEY HERE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val document = CreateDocument("My Document 500x", true, "Some fields",
-//            "matthew.chukwuemeka40@gmail.com", "506c5806-cc9b-4f8b-a83d-81083a3cbc01")
-//        templars.createDocument(document){
-//            it.onSuccess { resp ->
-//                Log.d(TAG, "Document: ${resp.data?.name}")
-//            }
-//
-//            it.onFailure { err ->
-//                Log.d(TAG, "Document Error: ${err.localizedMessage}")
-//            }
-//        }
+//        createDocument()
+//        createRegistration()
+//        createSession()
+//        rescheduleSession()
+//        updateDocument()
 
-//        templars.updateDocument("09ebf8e2-8d47-4661-9dcc-b06382dfc88e", "Updated Fields"){
-//            it.onSuccess { resp ->
-//                Log.d(TAG, "Document: ${resp.data?.name}")
-//            }
-//
-//            it.onFailure { err ->
-//                Log.d(TAG, "Document Error: ${err.localizedMessage}")
-//            }
-//        }
+//        allGetRequest()
+    }
 
+    private fun rescheduleSession() {
+        templars.rescheduleSession("SESSION ID", Date(), 1) {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Update Session: ${resp.data}")
+            }
 
-//        val body = CreateRegistration("More 34", true,
-//            "matthew.chukwuemeka40@gmail.com",
-//            "3398477d-33a3-4e4c-ba5f-6963d0de09ee")
-//        templars.createRegistration(body){
-//            it.onSuccess { resp ->
-//                Log.d(TAG, "Registration: ${resp.data?.fields}")
-//            }
-//            it.onFailure { err ->
-//                Log.d(TAG, "Registration Error: ${err.localizedMessage}")
-//            }
-//
-//        }
+            it.onFailure { err ->
+                Log.d(TAG, "Update Session Error: ${err.localizedMessage}")
+            }
+        }
+    }
 
+    private fun createSession() {
+        val session = CreateSession(
+            "SESSION TITLE",
+            "DESCRIPTION",
+            Date(),
+            2,
+            CreateSession.SessionType.VIDEO,
+            "EMAIL ADDRESS",
+            "LAWYER CATEGORY ID"
+        )
 
-//        val session = CreateSession("MYY Session23", "No description",
-//            Date(1616664565000), 2, CreateSession.SessionType.VIDEO,
-//            "matthew.chukwuemeka40@gmail.com")
-//        templars.createSession(session){
-//            it.onSuccess { resp ->
-//                Log.d(TAG, "Session: ${resp.data?.title}")
-//            }
-//            it.onFailure { err ->
-//                Log.d(TAG, "Session Error: ${err.localizedMessage}")
-//            }
-//        }
+        templars.createSession(session) {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Session: ${resp.data}")
+            }
+            it.onFailure { err ->
+                Log.d(TAG, "Session Error: ${err.localizedMessage}")
+            }
+        }
+    }
 
-//        templars.rescheduleSession("6d0721d8-bd40-4186-8e7e-a88d55cbe83d", Date(1616664565000), 1){
-//            it.onSuccess { resp ->
-//                Log.d(TAG, "Update Session: ${resp.data?.title}")
-//            }
-//
-//            it.onFailure { err ->
-//                Log.d(TAG, "Update Session Error: ${err.localizedMessage}")
-//            }
-//        }
+    private fun createRegistration() {
+        val body = CreateRegistration(
+            "FIELDS",
+            true,
+            "EMAIL ADDRESS",
+            "REGISTRATION CATEGORY ID"
+        )
 
-        //allGetRequest()
-        //getDocumentCategory()
-        updateDocument()
+        templars.createRegistration(body) {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Registration: ${resp.data}")
+            }
+            it.onFailure { err ->
+                Log.d(TAG, "Registration Error: ${err.localizedMessage}")
+            }
+        }
+    }
+
+    private fun createDocument() {
+        val document = CreateDocument(
+            "DOCUMENT NAME",
+            true,
+            listOf(),
+            "EMAIL ADDRESS",
+            "DOCUMENT CATEGORY ID"
+        )
+
+        templars.createDocument(document) {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Document: ${resp.data}")
+            }
+
+            it.onFailure { err ->
+                Log.d(TAG, "Document Error: ${err.localizedMessage}")
+            }
+        }
     }
 
     fun getDocumentCategory() {
-        templars.getDocumentCategory("506c5806-cc9b-4f8b-a83d-81083a3cbc01") {
+        templars.getDocumentCategory("DOCUMENT CATEGORY ID") {
             it.onSuccess { resp ->
-                val fields = resp.data?.fields
-                templars.updateDocument("506c5806-cc9b-4f8b-a83d-81083a3cbc01", fields!!) {
-                    it.onSuccess {
-                        Log.d(TAG, "Documents Category: Success Update")
-                    }
-                    it.onFailure { err ->
-                        Log.d(TAG, "Documents Category: ${err.localizedMessage}")
-                    }
-                }
-                Log.d(TAG, "Documents Category: ${resp.data?.name}")
+                Log.d(TAG, "Documents Category: ${resp.data}")
             }
 
             it.onFailure { err ->
@@ -124,51 +134,106 @@ class MainActivity : AppCompatActivity() {
         fields.add(field6)
         fields.add(field7)
 
-        templars.updateDocument("f87d01f9-7a5e-4d8f-8221-4be37042476a", fields) {
+        templars.updateDocument("DOCUMENT ID", fields) {
             it.onSuccess { resp ->
-                Log.d(TAG, "updateDocument: Success")
-                print(resp.data?.userId)
+                Log.d(TAG, "Update Document: ${resp.data}")
             }
 
-            it.onFailure {
-                Log.d(TAG, "updateDocument: Failed")
+            it.onFailure { err ->
+                Log.d(TAG, "Update Document: ${err.localizedMessage}")
             }
         }
-//        val createDocument = CreateDocument("Android doc", false, fields, "matthew.chukwuemeka40@gmail.com", "f87d01f9-7a5e-4d8f-8221-4be37042476a")
-//        templars.createDocument(createDocument){
-//            it.onSuccess {
-//                Log.d(TAG, "updateDocument: success")
-//            }
-//            it.onFailure { error ->
-//                Log.d(TAG, "updateDocument failed: ${error.localizedMessage}")
-//            }
-//        }
-
     }
 
     fun allGetRequest() {
-        templars.getDocuments {
+        getDocuments()
+        getDocument()
+        getDocumentCategories()
+        getDocumentCategory()
+
+        getSessions()
+        getSession()
+        getRegistrations()
+        getRegistration()
+
+        getRegistrationCatgeories()
+        getLawyerCategories()
+    }
+
+    private fun getLawyerCategories() {
+        templars.getLawyerCategories {
             it.onSuccess { resp ->
-                Log.d(TAG, "Documents: ${resp.data?.size}")
+                Log.d(TAG, "Lawyer Categories: ${resp.data}")
             }
 
             it.onFailure { err ->
-                Log.d(TAG, "Documents Error: ${err.localizedMessage}")
+                Log.d(TAG, "Lawyer Categories Error: ${err.localizedMessage}")
             }
         }
+    }
 
-        templars.getDocument("093a1a63-cf0e-461d-b238-c7dd749d0c63"){
+    private fun getRegistrationCatgeories() {
+        templars.getRegistrationCategories {
             it.onSuccess { resp ->
-                Log.d(TAG, "Document: ${resp.data?.name}")
+                Log.d(TAG, "Registration Categories: ${resp.data}")
             }
 
             it.onFailure { err ->
-                Log.d(TAG, "Document Error: ${err.localizedMessage}")
+                Log.d(TAG, "Registration Categories Error: ${err.localizedMessage}")
             }
         }
+    }
 
+    private fun getRegistration() {
+        templars.getRegistration("REGISTRATION ID") {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Registration: ${resp.data}")
+            }
+
+            it.onFailure { err ->
+                Log.d(TAG, "Registration Error: ${err.localizedMessage}")
+            }
+        }
+    }
+
+    private fun getRegistrations() {
+        templars.getRegistrations {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Registrations: ${resp.data}")
+            }
+
+            it.onFailure { err ->
+                Log.d(TAG, "Registrations Error: ${err.localizedMessage}")
+            }
+        }
+    }
+
+    private fun getSession() {
+        templars.getSession("SESSION ID") {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Session: ${resp.data}")
+            }
+
+            it.onFailure { err ->
+                Log.d(TAG, "Session Error: ${err.localizedMessage}")
+            }
+        }
+    }
+
+    private fun getSessions() {
+        templars.getSessions {
+            it.onSuccess { resp ->
+                Log.d(TAG, "Sessions: ${resp.data}")
+            }
+
+            it.onFailure { err ->
+                Log.d(TAG, "Sessions Error: ${err.localizedMessage}")
+            }
+        }
+    }
+
+    private fun getDocumentCategories() {
         templars.getDocumentCategories {
-
             it.onSuccess { resp ->
                 Log.d(TAG, "Document Categories: ${resp?.data?.size}")
             }
@@ -177,64 +242,28 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "Document Categories Error: ${err.localizedMessage}")
             }
         }
+    }
 
-        templars.getSessions {
+    private fun getDocument() {
+        templars.getDocument("DOCUMENT ID") {
             it.onSuccess { resp ->
-                Log.d(TAG, "Sessions Categories: ${resp?.data?.size}")
+                Log.d(TAG, "Document: ${resp.data}")
             }
 
             it.onFailure { err ->
-                Log.d(TAG, "Sessions Categories Error: ${err.localizedMessage}")
+                Log.d(TAG, "Document Error: ${err.localizedMessage}")
             }
         }
+    }
 
-        templars.getSession("0d257a09-96ec-4bd0-addc-c03108eaf000"){
+    private fun getDocuments() {
+        templars.getDocuments {
             it.onSuccess { resp ->
-                Log.d(TAG, "Session: ${resp.data?.title}")
+                Log.d(TAG, "Documents: ${resp.data}")
             }
 
             it.onFailure { err ->
-                Log.d(TAG, "Session Error: ${err.localizedMessage}")
-            }
-        }
-
-        templars.getRegistrations {
-            it.onSuccess { resp ->
-                Log.d(TAG, "Registrations: ${resp.data?.size}")
-            }
-
-            it.onFailure { err ->
-                Log.d(TAG, "Registrations Error: ${err.localizedMessage}")
-            }
-        }
-
-        templars.getRegistration("09ebf8e2-8d47-4661-9dcc-b06382dfc88e"){
-            it.onSuccess { resp ->
-                Log.d(TAG, "Registration: ${resp.data?.fields}")
-            }
-
-            it.onFailure { err ->
-                Log.d(TAG, "Registration Error: ${err.localizedMessage}")
-            }
-        }
-
-        templars.getRegistrationCategories {
-            it.onSuccess { resp ->
-                Log.d(TAG, "Registration Categories: ${resp.data?.size}")
-            }
-
-            it.onFailure { err ->
-                Log.d(TAG, "Registration Categories Error: ${err.localizedMessage}")
-            }
-        }
-
-        templars.getLawyerCategories {
-            it.onSuccess { resp ->
-                Log.d(TAG, "Lawyer Categories: ${resp.data?.size}")
-            }
-
-            it.onFailure { err ->
-                Log.d(TAG, "Lawyer Categories Error: ${err.localizedMessage}")
+                Log.d(TAG, "Documents Error: ${err.localizedMessage}")
             }
         }
     }
