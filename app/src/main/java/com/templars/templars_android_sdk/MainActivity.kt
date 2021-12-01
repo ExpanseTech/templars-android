@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
             "SESSION TITLE",
             "DESCRIPTION",
             Date(),
-            2, CreateSession.SessionType.VIDEO,
+            2,
+            CreateSession.SessionType.VIDEO,
             "EMAIL ADDRESS",
             "LAWYER CATEGORY ID"
         )
@@ -74,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             it.onFailure { err ->
                 Log.d(TAG, "Registration Error: ${err.localizedMessage}")
             }
-
         }
     }
 
@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() {
         getRegistrations()
         getRegistration()
 
-        getResgistrationCatgeories()
+        getRegistrationCatgeories()
         getLawyerCategories()
     }
 
@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getResgistrationCatgeories() {
+    private fun getRegistrationCatgeories() {
         templars.getRegistrationCategories {
             it.onSuccess { resp ->
                 Log.d(TAG, "Registration Categories: ${resp.data}")
