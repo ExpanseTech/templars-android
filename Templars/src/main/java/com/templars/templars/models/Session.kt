@@ -23,7 +23,7 @@ import java.util.*
  * @property user
  * @property assignee
  */
-class Session (
+data class Session(
     val id: String,
     val title: String,
     val description: String,
@@ -41,10 +41,9 @@ class Session (
     val active: Boolean,
     val user: User,
     val assignee: User?
-    ){
+) {
 
-
-    public enum class SessionType{
+    public enum class SessionType {
         audio, video, chat
     }
 }
