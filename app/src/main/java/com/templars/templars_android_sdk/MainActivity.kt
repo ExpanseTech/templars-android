@@ -65,7 +65,8 @@ class MainActivity : AppCompatActivity() {
             "FIELDS",
             true,
             "EMAIL ADDRESS",
-            "REGISTRATION CATEGORY ID"
+            "REGISTRATION CATEGORY ID",
+            "PAYMENT REFERENCE"
         )
 
         templars.createRegistration(body) {
@@ -156,7 +157,7 @@ class MainActivity : AppCompatActivity() {
         getRegistrations()
         getRegistration()
 
-        getRegistrationCatgeories()
+        getRegistrationCategories()
         getLawyerCategories()
     }
 
@@ -172,7 +173,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getRegistrationCatgeories() {
+    private fun getRegistrationCategories() {
         templars.getRegistrationCategories {
             it.onSuccess { resp ->
                 Log.d(TAG, "Registration Categories: ${resp.data}")
@@ -235,7 +236,7 @@ class MainActivity : AppCompatActivity() {
     private fun getDocumentCategories() {
         templars.getDocumentCategories {
             it.onSuccess { resp ->
-                Log.d(TAG, "Document Categories: ${resp?.data?.size}")
+                Log.d(TAG, "Document Categories: ${resp?.data}")
             }
 
             it.onFailure { err ->

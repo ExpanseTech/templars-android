@@ -1,5 +1,5 @@
 package com.templars.templars.models.requestBody
 
-class UpdateDocument (
+data class UpdateDocument(
     val fields: String
-    )
+)

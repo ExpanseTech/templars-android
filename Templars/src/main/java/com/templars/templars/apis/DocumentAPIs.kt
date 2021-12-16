@@ -4,38 +4,60 @@ import com.templars.templars.apis.`interface`.DocumentService
 import com.templars.templars.models.*
 import com.templars.templars.models.requestBody.CreateDocument
 import com.templars.templars.models.requestBody.UpdateDocument
+import com.templars.templars.utils.Constants
 import com.templars.templars.utils.enqueue
 
 class DocumentAPIs(private val apiKey: String) {
 
     private val documentService = DocumentService.instance
 
-    fun getDocument(id: String, callback: (Result<ResponseBody<Document>>) -> Unit){
+    fun getDocument(id: String, callback: (Result<ResponseBody<Document>>) -> Unit) {
         val doc = documentService.getDocument(apiKey, id)
         doc.enqueue(callback)
     }
 
-    fun getDocuments(draft: Boolean, page: Int, pageSize: Int, sortBy: SortBy, callback: (Result<ResponseBody<List<Document>>>) -> Unit){
-        val docsCall = documentService.getDocuments(apiKey, draft, page, pageSize, sortBy.toString())
+    fun getDocuments(
+        draft: Boolean?,
+        page: Int,
+        pageSize: Int,
+        sortBy: SortBy,
+        callback: (Result<ResponseBody<List<Document>>>) -> Unit
+    ) {
+        val queryMap = hashMapOf(
+            Constants.PAGE to page,
+            Constants.PAGE_SIZE to pageSize,
+            Constants.SORT_BY to sortBy.toString()
+        )
+
+        if (draft != null) {
+            queryMap[Constants.DRAFT] to draft
+        }
+
+        val docsCall = documentService.getDocuments(apiKey, queryMap)
         docsCall.enqueue(callback)
     }
 
-    fun getDocumentCategories(callback: (Result<ResponseBody<List<DocumentCategory>>?>) -> Unit){
+    fun getDocumentCategories(callback: (Result<ResponseBody<List<DocumentCategory>>?>) -> Unit) {
         val docCategoryCall = documentService.getDocumentCategories(apiKey)
         docCategoryCall.enqueue(callback)
     }
 
-    fun getDocumentCategory(id: String, callback: (Result<ResponseBody<DocumentCategory>>) -> Unit){
-        val docCategoryCall = documentService.getDocumentCategory(apiKey, id);
+    fun getDocumentCategory(
+        id: String,
+        callback: (Result<ResponseBody<DocumentCategory>>) -> Unit
+    ) {
+        val docCategoryCall = documentService.getDocumentCategory(apiKey, id)
         docCategoryCall.enqueue(callback)
     }
 
-    fun createDocument(document: CreateDocument, callback: (Result<ResponseBody<Document>>) -> Unit){
-
+    fun createDocument(
+        document: CreateDocument,
+        callback: (Result<ResponseBody<Document>>) -> Unit
+    ) {
         //check validity of fields
         val (isValid, message) = Field.isListValid(document.fields)
-        if (!isValid){
-            val result =  Result.failure<ResponseBody<Document>>(Throwable(message, null))
+        if (!isValid) {
+            val result = Result.failure<ResponseBody<Document>>(Throwable(message))
             callback(result)
         }
 
@@ -43,12 +65,15 @@ class DocumentAPIs(private val apiKey: String) {
         docCall.enqueue(callback)
     }
 
-    fun updateDocument(id: String, fields: List<Field>, callback: (Result<ResponseBody<Document>>) -> Unit){
-
+    fun updateDocument(
+        id: String,
+        fields: List<Field>,
+        callback: (Result<ResponseBody<Document>>) -> Unit
+    ) {
         //check validity of fields
         val (isValid, message) = Field.isListValid(fields)
-        if (!isValid){
-            val result =  Result.failure<ResponseBody<Document>>(Throwable(message, null))
+        if (!isValid) {
+            val result = Result.failure<ResponseBody<Document>>(Throwable(message))
             callback(result)
         }
 
@@ -58,8 +83,3 @@ class DocumentAPIs(private val apiKey: String) {
         docCall.enqueue(callback)
     }
 }
-
-
-
-
-

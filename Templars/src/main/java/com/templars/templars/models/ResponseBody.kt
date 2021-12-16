@@ -9,10 +9,10 @@ package com.templars.templars.models
  * @property data
  * @property meta
  */
-public data class ResponseBody<T> (
+data class ResponseBody<T>(
     val message: String,
     val data: T?,
-    var meta: Meta?
+    val meta: Meta?
 )
 
 /**
@@ -24,7 +24,7 @@ public data class ResponseBody<T> (
  * @property currentPage
  * @property totalPages
  */
-public data class Meta(
+data class Meta(
     val perPage: Int,
     val total: Int,
     val count: Int,

@@ -1,6 +1,5 @@
 package com.templars.templars.utils
 
-
 /**
  * All URLs for Templars API Request
  *

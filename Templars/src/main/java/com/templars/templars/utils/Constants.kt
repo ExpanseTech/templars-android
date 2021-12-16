@@ -10,5 +10,4 @@ class Constants {
         const val PAGE = "page"
         const val DRAFT = "draft"
     }
-
 }

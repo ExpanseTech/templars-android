@@ -12,30 +12,37 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-interface RegistrationService{
+interface RegistrationService {
 
     @GET(URLs.getRegistration)
-    fun getRegistration(@Header("authorization") apiKey: String, @Path("id") id: String): Call<ResponseBody<Registration>>
+    fun getRegistration(
+        @Header(Constants.AUTHORIZATION) apiKey: String,
+        @Path("id") id: String
+    ): Call<ResponseBody<Registration>>
 
     @GET(URLs.getRegistrations)
-    fun getRegistrations(@Header("authorization") apiKey: String, @Query(Constants.DRAFT) draft: Boolean,
-                         @Query(Constants.PAGE) page: Int, @Query(Constants.PAGE_SIZE) pageSize: Int,
-                         @Query(Constants.SORT_BY) sortBy: String): Call<ResponseBody<List<Registration>>>
+    fun getRegistrations(
+        @Header(Constants.AUTHORIZATION) apiKey: String,
+        @QueryMap queryMap: Map<String, @JvmSuppressWildcards Any?>
+    ): Call<ResponseBody<List<Registration>>>
 
     @GET(URLs.getRegistrationCategories)
-    fun getRegistrationCategories(@Header("authorization") apiKey: String): Call<ResponseBody<List<RegistrationCategory>>>
+    fun getRegistrationCategories(@Header(Constants.AUTHORIZATION) apiKey: String): Call<ResponseBody<List<RegistrationCategory>>>
 
     @POST(URLs.createRegistration)
-    fun createRegistration(@Header(Constants.AUTHORIZATION) apiKey: String, @Body body: CreateRegistration): Call<ResponseBody<Registration>>
+    fun createRegistration(
+        @Header(Constants.AUTHORIZATION) apiKey: String,
+        @Body body: CreateRegistration
+    ): Call<ResponseBody<Registration>>
 
-    companion object{
+    companion object {
         private val gson = GsonBuilder().setLenient().create()
         val instance: RegistrationService by lazy {
             val retrofit = Retrofit.Builder()
                 .baseUrl(URLs.baseURL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
-            retrofit.create<RegistrationService>(RegistrationService::class.java)
+            retrofit.create(RegistrationService::class.java)
         }
     }
 }

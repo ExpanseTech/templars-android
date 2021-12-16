@@ -18,7 +18,7 @@ import java.util.*
  * @property price
  * @property parent
  */
-data class DocumentCategory (
+data class DocumentCategory(
     val id: String,
     @SerializedName("active")
     val isActive: Boolean,
@@ -31,24 +31,24 @@ data class DocumentCategory (
     @SerializedName("public")
     val isPublic: Boolean,
     val price: Double,
-    val parent: DocumentCategory
-){
+    val parent: DocumentCategory?
+) {
     val fields: MutableList<Field>?
-        get() = when(template){
-        null -> null
-        else -> {
-            var f: MutableList<Field> = mutableListOf()
-            val fields = Gson().fromJson(template, Template::class.java)
-            if (fields != null){
-                if (fields.nodes != null){
-                    f.addAll(Field.getEditableFields(fields.nodes).toMutableList())
-                }
+        get() = when (template) {
+            null -> null
+            else -> {
+                val f: MutableList<Field> = mutableListOf()
+                val fields = Gson().fromJson(template, Template::class.java)
+                if (fields != null) {
+                    if (fields.nodes != null) {
+                        f.addAll(Field.getEditableFields(fields.nodes).toMutableList())
+                    }
 
-                if (fields.orphans != null){
-                    f.addAll(Field.getEditableFields(fields.orphans).toMutableList())
+                    if (fields.orphans != null) {
+                        f.addAll(Field.getEditableFields(fields.orphans).toMutableList())
+                    }
                 }
+                f
             }
-            f
         }
-    }
 }
