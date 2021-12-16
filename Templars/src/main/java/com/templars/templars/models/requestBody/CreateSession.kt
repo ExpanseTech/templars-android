@@ -13,17 +13,17 @@ import java.util.*
  * @property customerReference
  * @property lawyerCategoryId
  */
-class CreateSession(
+data class CreateSession(
     val title: String,
     val description: String,
     val startDate: Date,
-    var count: Int,
-    var type: SessionType,
+    val count: Int,
+    val type: SessionType,
     val customerReference: String,
     val lawyerCategoryId: String,
-){
-    
-    enum class SessionType{
+) {
+
+    enum class SessionType {
         AUDIO, VIDEO, CHAT
     }
 }

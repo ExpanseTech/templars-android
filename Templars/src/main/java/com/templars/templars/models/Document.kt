@@ -2,7 +2,6 @@ package com.templars.templars.models
 
 import java.util.*
 
-
 /**
  * Document
  *

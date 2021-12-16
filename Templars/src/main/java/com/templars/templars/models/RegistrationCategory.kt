@@ -3,7 +3,7 @@ package com.templars.templars.models
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class RegistrationCategory (
+data class RegistrationCategory(
     val id: String,
     val createdAt: Date,
     val updatedAt: Date,
@@ -14,4 +14,4 @@ data class RegistrationCategory (
     @SerializedName("public")
     val isPublic: Boolean,
     val price: Double
-    )
+)

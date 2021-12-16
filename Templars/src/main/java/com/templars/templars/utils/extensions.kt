@@ -1,13 +1,8 @@
 package com.templars.templars.utils
 
-import com.templars.templars.models.TError
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-val Throwable.tError: TError
-    get() = TError("Error", localizedMessage)
-
 
 /**
  * Extension func for generic [Call] type,
@@ -16,18 +11,20 @@ val Throwable.tError: TError
  * @param T
  * @param callback
  */
-public fun <T> Call<T>.enqueue(callback: (Result<T>) -> Unit) {
-    enqueue(object: Callback<T> {
+fun <T> Call<T>.enqueue(callback: (Result<T>) -> Unit) {
+    enqueue(object : Callback<T> {
         override fun onResponse(call: Call<T>, response: Response<T>) {
             try {
-                if (response.code() > 499){
-                    val result = Result.failure<T>(Error("Service Error"))
+                if (response.isSuccessful.not()) {
+                    val result = Result.failure<T>(Throwable(response.errorBody()?.string()))
                     callback(result)
+                    return
                 }
+
                 val result = Result.success(response.body()!!)
                 callback(result)
-            }catch(ex: Exception) {
-                val result = Result.failure<T>(Throwable(response.message(), null))
+            } catch (ex: Exception) {
+                val result = Result.failure<T>(Throwable(response.message()))
                 callback(result)
             }
         }

@@ -174,13 +174,12 @@ class Templars(apiKey: String) {
      * @param callback
      */
     fun getRegistrations(
-        draft: Boolean = false,
+        draft: Boolean? = null,
         page: Int = 1,
         pageSize: Int = 30,
         sortBy: SortBy = SortBy.CreationDate,
         callback: (Result<ResponseBody<List<Registration>>>) -> Unit
     ) {
-
         registrationAPIs.getRegistrations(draft, page, pageSize, sortBy, callback)
     }
 

@@ -2,6 +2,7 @@ package com.templars.templars.apis.`interface`
 
 import com.templars.templars.models.LawyerCategory
 import com.templars.templars.models.ResponseBody
+import com.templars.templars.utils.Constants
 import com.templars.templars.utils.URLs
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -12,9 +13,9 @@ import retrofit2.http.Header
 interface LawyerService {
 
     @GET(URLs.getLawyersCategories)
-    fun getLawyersCategories(@Header("authorization") apiKey: String): Call<ResponseBody<List<LawyerCategory>>>
+    fun getLawyersCategories(@Header(Constants.AUTHORIZATION) apiKey: String): Call<ResponseBody<List<LawyerCategory>>>
 
-    companion object{
+    companion object {
         val instance: LawyerService by lazy {
             val retrofit = Retrofit.Builder()
                 .baseUrl(URLs.baseURL)

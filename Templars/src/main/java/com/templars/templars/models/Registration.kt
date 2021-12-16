@@ -17,7 +17,7 @@ import java.util.*
  * @property categoryId
  * @property userId
  */
-data class Registration (
+data class Registration(
     val id: String,
     val template: String,
     val fields: String,
@@ -29,4 +29,4 @@ data class Registration (
     val user: User,
     val categoryId: String,
     val userId: String
-    )
+)

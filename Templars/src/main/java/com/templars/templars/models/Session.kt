@@ -43,7 +43,7 @@ data class Session(
     val assignee: User?
 ) {
 
-    public enum class SessionType {
+    enum class SessionType {
         audio, video, chat
     }
 }
